@@ -94,7 +94,7 @@ bool FileDialog::Draw(bool* open)
         {
             fileNameSize = bufferSize - 1;
         }
-        std::memcpy(buffer, fileName.string().c_str(), fileNameSize);
+        memcpy(buffer, fileName.string().c_str(), fileNameSize);
         buffer[fileNameSize] = 0;
 
         ImGui::PushItemWidth(ImGui::GetWindowContentRegionWidth());

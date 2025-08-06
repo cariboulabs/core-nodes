@@ -8,6 +8,7 @@
 ******************************************************************************************/
 
 #include "CoreDiagram.hpp"
+#include <algorithm>
 
 CoreDiagram::~CoreDiagram()
 {
@@ -856,8 +857,8 @@ void CoreDiagram::UpdateCanvasScrollZoom()
 void CoreDiagram::UpdateCanvasGrid(ImDrawList* drawList) const
 {
     const float grid = 32.0f * scale;
-    float x = std::fmodf(scroll.x, grid);
-    float y = std::fmodf(scroll.y, grid);
+    float x = fmodf(scroll.x, grid);
+    float y = fmodf(scroll.y, grid);
     auto markX = static_cast<int>(scroll.x / grid);
     auto markY = static_cast<int>(scroll.y / grid);
     while (x < size.x)
@@ -1183,7 +1184,8 @@ void CoreDiagram::HighlightNode()
     highlightedNode = iNode; // Set highlighted node.
     if (coreNodeVec.back() != iNode)
     {
-        coreNodeVec.erase(std::find(coreNodeVec.begin(), coreNodeVec.end(), iNode));
+        auto it = std::find(coreNodeVec.begin(), coreNodeVec.end(), iNode);
+        coreNodeVec.erase(it);
         coreNodeVec.push_back(iNode); // Bring iNode to front.
     }
 }
